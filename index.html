@@ -3,57 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GOC AI Thumbnail Pro - YT 4K Download + AI Generator</title>
+<title>GOC AI Studio - Pro Thumbnail Generator</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px}
-.container{max-width:600px;margin:0 auto;background:white;border-radius:20px;padding:30px;box-shadow:0 20px 40px rgba(0,0,0,0.1)}
-h1{text-align:center;color:#333;margin-bottom:10px;font-size:28px}
-.tagline{text-align:center;color:#666;margin-bottom:30px}
-input{width:100%;padding:15px;border:2px solid #ddd;border-radius:10px;font-size:16px;margin-bottom:15px}
-.btn{width:100%;padding:15px;border:none;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer;margin-bottom:10px}
-.btn-download{background:#10b981;color:white}
-.btn-goc{background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);color:white}
-.pricing{display:flex;gap:10px;margin-top:20px}
-.price-btn{flex:1;padding:15px;border:2px solid #667eea;border-radius:10px;background:white;color:#667eea;font-weight:bold;cursor:pointer}
-.price-btn:hover{background:#667eea;color:white}
-#result{margin-top:20px;text-align:center}
-img{max-width:100%;border-radius:10px;margin-top:15px}
-.footer{text-align:center;margin-top:30px;color:#666;font-size:14px}
+body{font-family:'Inter',sans-serif;background:#0f0f1a;color:#fff;min-height:100vh;padding:20px}
+.container{max-width:720px;margin:0 auto}
+.header{text-align:center;margin-bottom:40px}
+.badge{display:inline-block;background:linear-gradient(135deg,#f093fb,#f5576c);padding:6px 16px;border-radius:50px;font-size:12px;font-weight:700;margin-bottom:15px}
+h1{font-size:36px;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+.tagline{color:#9ca3af;font-size:16px}
+.card{background:#1a1a2e;border:1px solid #2d2d44;border-radius:24px;padding:30px;margin-bottom:25px;box-shadow:0 10px 30px rgba(0,0,0,0.3)}
+.input-group{position:relative;margin-bottom:20px}
+.input-group i{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:#667eea}
+input{width:100%;padding:16px 16px 50px;background:#0f0f1a;border:2px solid #2d2d44;border-radius:14px;color:#fff;font-size:16px;outline:none;transition:0.3s}
+input:focus{border-color:#667eea;box-shadow:0 0 0 4px rgba(102,126,234,0.1)}
+.btn{width:100%;padding:16px;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:12px;transition:0.3s;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:white}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(102,126,234,0.4)}
+.btn-success{background:linear-gradient(135deg,#10b981,#059669);color:white}
+.btn-ai{background:linear-gradient(135deg,#f093fb,#f5576c);color:white}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:25px}
+.price-card{background:#0f0f1a;border:2px solid #2d2d44;border-radius:16px;padding:20px;text-align:center;transition:0.3s;text-decoration:none;color:white;display:block}
+.price-card:hover{border-color:#667eea;transform:translateY(-5px)}
+.price{font-size:32px;font-weight:800;color:#667eea;margin:10px 0}
+.price-desc{color:#9ca3af;font-size:14px}
+.popular{position:relative;border-color:#f5576c}
+.popular::before{content:'POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#f5576c;padding:4px 12px;border-radius:50px;font-size:11px;font-weight:700}
+#result{margin-top:25px}
+#result img{width:100%;border-radius:16px;margin:15px 0;border:2px solid #2d2d44}
+.features{display:flex;justify-content:space-around;margin:30px 0;text-align:center}
+.feature i{font-size:24px;color:#667eea;margin-bottom:8px}
+.feature p{font-size:12px;color:#9ca3af}
+.footer{text-align:center;margin-top:40px;color:#6b7280;font-size:14px}
+.footer i{color:#f5576c}
 </style>
 </head>
 <body>
 <div class="container">
-<h1>🔥 GOC AI Thumbnail Pro</h1>
-<p class="tagline">YouTube 4K Thumbnail Download + AI Generator</p>
-
-<input type="text" id="ytLink" placeholder="YouTube Video Link Paste Karo...">
-<button class="btn btn-download" onclick="downloadThumb()">📥 HD Thumbnail Download</button>
-<button class="btn btn-goc" onclick="gocAI()">🚀 GOC AI Generator - Coming Soon</button>
-
-<div class="pricing">
-<button class="price-btn" onclick="pay(29)">₹29<br>Basic</button>
-<button class="price-btn" onclick="pay(139)">₹139<br>Pro + AI</button>
+<div class="header">
+<div class="badge">⚡ TRUSTED BY 10K+ CREATORS</div>
+<h1>GOC AI Studio</h1>
+<p class="tagline">4K Thumbnail Download + AI Image Generator</p>
 </div>
 
+<div class="card">
+<div class="input-group">
+<i class="fab fa-youtube"></i>
+<input type="text" id="ytLink" placeholder="Paste YouTube Video URL here...">
+</div>
+<button class="btn btn-success" onclick="downloadThumb()"><i class="fas fa-download"></i> Download HD Thumbnail</button>
+<button class="btn btn-ai" onclick="gocAI()"><i class="fas fa-magic"></i> Generate AI Thumbnail</button>
 <div id="result"></div>
-
-<p class="footer">Made with ❤️ by GOC | 100% Free HD Download</p>
 </div>
 
-<script>
-function downloadThumb(){
-let link=document.getElementById('ytLink').value;
-if(!link){alert('Bhai pehle YouTube link daal');return}
-let videoId='';
-if(link.includes('youtube.com/watch?v=')){videoId=link.split('v=')[1].split('&')[0]}
-else if(link.includes('youtu.be/')){videoId=link.split('youtu.be/')[1].split('?')[0]}
-else{alert('Sahi YouTube link daal bhai');return}
-let imgUrl=`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-document.getElementById('result').innerHTML=`<h3>✅ Thumbnail Ready!</h3><img src="${imgUrl}"><br><br><a href="${imgUrl}" download><button class="btn btn-download">Download HD</button></a>`;
-}
-function gocAI(){alert('GOC AI Generator Coming Soon! Abhi HD Download use karo 🔥')}
-function pay(amount){alert(`UPI Payment: ₹${amount}\n\nPhonePe/GPay: 9876543210@upi\n\nPayment ke baad screenshot WhatsApp karo`)}
-</script>
-</body>
-</html>
+<div class="card">
+<h3 style="text-align:center;margin-bottom:20px;font-size:20px;">🚀 Upgrade to Pro</h3>
+<div class="grid">
+<a class="price-card" href="upi://pay?pa=7077134418@ybl&pn=GOC%20AI%20Studio&am=29&cu=INR&tn=Basic%20Pack
