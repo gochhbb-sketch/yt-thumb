@@ -1,21 +1,59 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI YouTube Thumbnail Generator - 4K Pro ₹139</title>
-    <meta name="description" content="YouTube thumbnail download HD FREE. 4K ₹139/month unlimited. AI se naya banao.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-  .gradient-bg { background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); }
-  .ai-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-  .pro-gradient { background: linear-gradient(135deg, #FFD700 0%, #FF6B35 100%); }
-  .btn-hover:hover { transform: scale(1.02); transition: 0.2s; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOC AI Thumbnail Pro - YT 4K Download + AI Generator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto;background:white;border-radius:20px;padding:30px;box-shadow:0 20px 40px rgba(0,0,0,0.1)}
+h1{text-align:center;color:#333;margin-bottom:10px;font-size:28px}
+.tagline{text-align:center;color:#666;margin-bottom:30px}
+input{width:100%;padding:15px;border:2px solid #ddd;border-radius:10px;font-size:16px;margin-bottom:15px}
+.btn{width:100%;padding:15px;border:none;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer;margin-bottom:10px}
+.btn-download{background:#10b981;color:white}
+.btn-goc{background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);color:white}
+.pricing{display:flex;gap:10px;margin-top:20px}
+.price-btn{flex:1;padding:15px;border:2px solid #667eea;border-radius:10px;background:white;color:#667eea;font-weight:bold;cursor:pointer}
+.price-btn:hover{background:#667eea;color:white}
+#result{margin-top:20px;text-align:center}
+img{max-width:100%;border-radius:10px;margin-top:15px}
+.footer{text-align:center;margin-top:30px;color:#666;font-size:14px}
+</style>
 </head>
-<body class="bg-gray-50">
+<body>
+<div class="container">
+<h1>🔥 GOC AI Thumbnail Pro</h1>
+<p class="tagline">YouTube 4K Thumbnail Download + AI Generator</p>
 
-<!-- Paste your full code here exactly as you wrote -->
+<input type="text" id="ytLink" placeholder="YouTube Video Link Paste Karo...">
+<button class="btn btn-download" onclick="downloadThumb()">📥 HD Thumbnail Download</button>
+<button class="btn btn-goc" onclick="gocAI()">🚀 GOC AI Generator - Coming Soon</button>
 
+<div class="pricing">
+<button class="price-btn" onclick="pay(29)">₹29<br>Basic</button>
+<button class="price-btn" onclick="pay(139)">₹139<br>Pro + AI</button>
+</div>
+
+<div id="result"></div>
+
+<p class="footer">Made with ❤️ by GOC | 100% Free HD Download</p>
+</div>
+
+<script>
+function downloadThumb(){
+let link=document.getElementById('ytLink').value;
+if(!link){alert('Bhai pehle YouTube link daal');return}
+let videoId='';
+if(link.includes('youtube.com/watch?v=')){videoId=link.split('v=')[1].split('&')[0]}
+else if(link.includes('youtu.be/')){videoId=link.split('youtu.be/')[1].split('?')[0]}
+else{alert('Sahi YouTube link daal bhai');return}
+let imgUrl=`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+document.getElementById('result').innerHTML=`<h3>✅ Thumbnail Ready!</h3><img src="${imgUrl}"><br><br><a href="${imgUrl}" download><button class="btn btn-download">Download HD</button></a>`;
+}
+function gocAI(){alert('GOC AI Generator Coming Soon! Abhi HD Download use karo 🔥')}
+function pay(amount){alert(`UPI Payment: ₹${amount}\n\nPhonePe/GPay: 9876543210@upi\n\nPayment ke baad screenshot WhatsApp karo`)}
+</script>
 </body>
 </html>
