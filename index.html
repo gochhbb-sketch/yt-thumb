@@ -24,7 +24,7 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 .checkbox{display:flex;align-items:start;gap:10px;margin:15px 0;font-size:13px;color:#94a3b8}
 .checkbox input{width:auto;margin:0;margin-top:3px}
 #imgBox,#thumbBox{margin-top:25px;text-align:center}
-#imgBox img,#thumbBox img{width:100%;border-radius:16px;margin-bottom:15px}
+#imgBox img,#thumbBox img{width:100%;border-radius:16px;margin-bottom:15px;image-rendering:high-quality}
 .downloads{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
 .dlBtn{padding:12px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;background:#334155;color:white}
 .loader{display:none;color:#8b5cf6;text-align:center;margin:20px 0;font-weight:600}
@@ -45,6 +45,8 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 .modalBox h3{color:white;margin-bottom:15px}
 .closeBtn{background:#334155}
 .quality-tag{display:inline-block;background:#0f172a;border:1px solid #334155;padding:6px 12px;border-radius:8px;font-size:12px;color:#8b5cf6;margin-bottom:15px}
+.free-badge{background:#10b981;color:white;padding:2px 8px;border-radius:6px;font-size:10px;margin-left:5px}
+.paid-badge{background:#ef4444;color:white;padding:2px 8px;border-radius:6px;font-size:10px;margin-left:5px}
 </style>
 </head>
 <body>
@@ -58,9 +60,9 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 <!-- THUMBNAIL DOWNLOADER -->
 <div id="thumbTab" class="box">
 <h1>YT <span>Thumbnail</span> Downloader</h1>
-<p>Paste YouTube link & get HD thumbnail</p>
+<p>Paste YouTube link & get all quality thumbnails</p>
 <input type="text" id="ytLink" placeholder="https://youtube.com/watch?v=...">
-<div class="quality-tag">📊 Available: HD 1280x720 | SD 640x480 | HQ 480x360 | MQ 320x180</div>
+<div class="quality-tag">📊 HD 1280x720 | SD 640x480 | HQ 480x360 | MQ 320x180</div>
 <button class="btn" onclick="getThumb()">🎯 Get All Qualities</button>
 <div id="thumbBox"></div>
 </div>
@@ -69,12 +71,14 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 <div id="aiTab" class="box hidden">
 <h1>Safe AI <span>Generator</span></h1>
 <p>NSFW blocked • 18+ only • Safe content</p>
-<textarea id="prompt" rows="3" placeholder="Example: Cyberpunk city, neon lights, cinematic"></textarea>
+<textarea id="prompt" rows="3" placeholder="Example: Cyberpunk city, neon lights, cinematic, ultra detailed"></textarea>
 
 <select id="quality">
-<option value="4k">🎬 4K Ultra HD - 1024x1024 [₹139 Pro]</option>
-<option value="hd">💎 HD Quality - 768x768 [₹29 Pro]</option>
-<option value="standard" selected>⚡ Standard - 512x512 [Free]</option>
+<option value="8k">🎬 8K Full Ultra HD - 7680x4320 [₹139 Pro] 🔒</option>
+<option value="4k">💎 4K Ultra HD - 3840x2160 [₹139 Pro] 🔒</option>
+<option value="fhd">📺 Full HD - 1920x1080 [₹29 Pro] 🔒</option>
+<option value="hd">⚡ HD - 1280x720 [FREE] ✅</option>
+<option value="sd" selected>📱 SD - 640x480 [FREE] ✅</option>
 </select>
 
 <div class="checkbox">
@@ -82,23 +86,24 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 <label for="agree">I agree to the Terms & Conditions. I confirm I am 18+ and will not generate NSFW/illegal content.</label>
 </div>
 <button class="btn" id="genBtn" onclick="makeImage()">✨ Generate Image</button>
-<div class="loader" id="loader">Generating... 10-20 sec ⏳</div>
+<div class="loader" id="loader">Generating... 15-40 sec ⏳</div>
 <div id="imgBox"></div>
 </div>
 
 <!-- PRICING PLANS -->
 <div id="plansTab" class="box hidden">
 <h1>Choose Your <span>Plan</span></h1>
-<p>Upgrade for unlimited access & pro features</p>
+<p>SD & HD Free • FHD, 4K, 8K Premium</p>
 <div class="plans">
 <div class="plan">
 <h3>Free</h3>
 <div class="price">₹0<span>/month</span></div>
 <ul>
-<li>5 Images/day - Standard Quality</li>
-<li>Thumbnail Downloader - All Qualities</li>
+<li>SD 640x480 <span class="free-badge">FREE</span></li>
+<li>HD 1280x720 <span class="free-badge">FREE</span></li>
+<li>5 Images/day</li>
+<li>Thumbnail Downloader</li>
 <li>Watermark on images</li>
-<li>512x512 Resolution</li>
 </ul>
 <button class="btn" style="background:#334155">Current Plan</button>
 </div>
@@ -108,9 +113,9 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 <h3>Pro</h3>
 <div class="price">₹29<span>/month</span></div>
 <ul>
-<li>Unlimited Images - HD Quality</li>
+<li>Full HD 1920x1080 <span class="paid-badge">PRO</span></li>
+<li>Unlimited Images</li>
 <li>No Watermark</li>
-<li>768x768 HD Resolution</li>
 <li>Priority Speed</li>
 <li>Commercial Use</li>
 </ul>
@@ -118,15 +123,15 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 </div>
 
 <div class="plan">
-<div class="badge">4K ACCESS</div>
+<div class="badge">ULTRA QUALITY</div>
 <h3>Ultra Pro</h3>
 <div class="price">₹139<span>/month</span></div>
 <ul>
+<li>4K Ultra HD 3840x2160 <span class="paid-badge">ULTRA</span></li>
+<li>8K Full Ultra HD 7680x4320 <span class="paid-badge">ULTRA</span></li>
 <li>Everything in Pro</li>
-<li>4K Ultra HD - 1024x1024</li>
-<li>Unlimited 4K Generation</li>
+<li>Masterpiece Quality</li>
 <li>Fastest Priority</li>
-<li>API Access</li>
 </ul>
 <button class="btn upiBtn" onclick="payNow(139)">💳 Pay ₹139 via UPI</button>
 </div>
@@ -147,7 +152,7 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 </div>
 
 <script>
-const UPI_ID = '7077134418@ybl'; // Tera number - hidden rahega
+const UPI_ID = 'khirtamg9343@okaxis';
 
 function showTab(tab,btn){
 document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -159,11 +164,9 @@ document.getElementById(tab+'Tab').classList.remove('hidden');
 function payNow(amount){
 document.getElementById('payText').innerText = `Pay ₹${amount} securely via UPI`;
 document.getElementById('payModal').style.display = 'flex';
-// Number hidden - direct UPI link with your ID
-let upiLink = `upi://pay?pa=${UPI_ID}&pn=AI%20Tool%20Pro&am=${amount}&cu=INR`;
+let upiLink = `upi://pay?pa=${UPI_ID}&pn=AI%20Tool%20Pro&am=${amount}&cu=INR&tn=Plan%20Subscription`;
 document.getElementById('openUPIBtn').onclick = function(){
 window.location.href = upiLink;
-// Fallback agar app na khule
 setTimeout(()=>{alert('If UPI app did not open, please pay manually using any UPI app. Amount: ₹'+amount);},2000);
 }
 }
@@ -186,12 +189,12 @@ let sd = `https://img.youtube.com/vi/${videoId}/sddefault.jpg`;
 
 document.getElementById('thumbBox').innerHTML = `
 <img src="${maxres}" onerror="this.src='${hq}'">
-<p style="color:#10b981;font-size:13px;margin:10px 0">✅ All 4 Qualities Available Below</p>
+<p style="color:#10b981;font-size:13px;margin:10px 0">✅ All Qualities Available - Free Download</p>
 <div class="downloads">
-<a href="${maxres}" download="thumbnail-HD.jpg"><button class="dlBtn">📥 HD 1280x720</button></a>
-<a href="${sd}" download="thumbnail-SD.jpg"><button class="dlBtn">📥 SD 640x480</button></a>
-<a href="${hq}" download="thumbnail-HQ.jpg"><button class="dlBtn">📥 HQ 480x360</button></a>
-<a href="${mq}" download="thumbnail-MQ.jpg"><button class="dlBtn">📥 MQ 320x180</button></a>
+<a href="${maxres}" download="thumbnail-HD-1280x720.jpg"><button class="dlBtn">📥 HD 1280x720</button></a>
+<a href="${sd}" download="thumbnail-SD-640x480.jpg"><button class="dlBtn">📥 SD 640x480</button></a>
+<a href="${hq}" download="thumbnail-HQ-480x360.jpg"><button class="dlBtn">📥 HQ 480x360</button></a>
+<a href="${mq}" download="thumbnail-MQ-320x180.jpg"><button class="dlBtn">📥 MQ 320x180</button></a>
 </div>`;
 }
 
@@ -203,7 +206,7 @@ return;
 let prompt = document.getElementById('prompt').value.trim();
 if(!prompt){alert('Please enter a prompt to generate an image');return}
 
-let banned = ['nude','naked','sex','porn','xxx','nsfw','adult','hentai'];
+let banned = ['nude','naked','sex','porn','xxx','nsfw','adult','hentai','boobs','pussy','uncensored'];
 let lowerPrompt = prompt.toLowerCase();
 for(let word of banned){
 if(lowerPrompt.includes(word)){
@@ -213,13 +216,33 @@ return;
 }
 
 let quality = document.getElementById('quality').value;
-let size = '512';
-let needsUpgrade = false;
-if(quality === '4k'){size = '1024';needsUpgrade = true;}
-if(quality === 'hd'){size = '768';needsUpgrade = true;}
+let width = 640, height = 480;
+let qualityTags = 'high quality, detailed';
+let planRequired = '';
+let price = 0;
 
-if(needsUpgrade){
-alert('HD/4K quality requires Pro plan. Please upgrade to Pro ₹29 or Ultra Pro ₹139 from Plans tab.');
+if(quality === 'sd'){
+width = 640; height = 480;
+qualityTags = 'standard definition, clear';
+}else if(quality === 'hd'){
+width = 1280; height = 720;
+qualityTags = 'high definition, detailed, sharp';
+}else if(quality === 'fhd'){
+width = 1920; height = 1080;
+qualityTags = 'full hd, professional, cinematic, sharp focus';
+planRequired = 'Pro'; price = 29;
+}else if(quality === '4k'){
+width = 3840; height = 2160;
+qualityTags = '4k ultra hd, masterpiece, ultra detailed, photorealistic, 8k quality, professional photography';
+planRequired = 'Ultra Pro'; price = 139;
+}else if(quality === '8k'){
+width = 7680; height = 4320;
+qualityTags = '8k full ultra hd, masterpiece, maximum detail, photorealistic, professional studio quality';
+planRequired = 'Ultra Pro'; price = 139;
+}
+
+if(planRequired){
+alert(`${quality.toUpperCase()} quality requires ${planRequired} plan. Please upgrade for ₹${price} from Plans tab.`);
 showTab('plans',document.querySelectorAll('.tab')[2]);
 return;
 }
@@ -228,13 +251,13 @@ document.getElementById('genBtn').disabled = true;
 document.getElementById('loader').style.display = 'block';
 document.getElementById('imgBox').innerHTML = '';
 
-let safePrompt = prompt + ', safe for work, clothed, no nudity, family friendly, high quality';
-let aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(safePrompt)}?width=${size}&height=${size}&seed=${Math.floor(Math.random()*100000)}&nologo=true&safe=true`;
+let safePrompt = `${prompt}, ${qualityTags}, safe for work, clothed, no nudity, family friendly`;
+let aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(safePrompt)}?width=${width}&height=${height}&seed=${Math.floor(Math.random()*100000)}&nologo=true&safe=true&enhance=true&model=flux`;
 
 document.getElementById('imgBox').innerHTML = `
-<p style="color:#10b981;margin-bottom:10px">✅ Safe Mode Enabled | Quality: ${size}x${size}</p>
+<p style="color:#10b981;margin-bottom:10px">✅ Safe Mode + HD Enhanced | ${quality.toUpperCase()}: ${width}x${height}</p>
 <img src="${aiUrl}" onload="done()" onerror="error()">
-<a href="${aiUrl}" download="ai-${size}x${size}.png"><button class="btn">📥 Download ${size}x${size}</button></a>`;
+<a href="${aiUrl}" download="ai-${quality}-${width}x${height}.png"><button class="btn">📥 Download ${quality.toUpperCase()} ${width}x${height}</button></a>`;
 
 function done(){
 document.getElementById('loader').style.display='none';
@@ -244,7 +267,7 @@ function error(){
 document.getElementById('imgBox').innerHTML = '<p style="color:#ef4444">An error occurred. Please try again with a different prompt.</p>';
 done();
 }
-setTimeout(done, 25000);
+setTimeout(done, 40000);
 }
 </script>
 </body>
