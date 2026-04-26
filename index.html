@@ -3,102 +3,233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GOC AI Studio - Thumbnail Pro</title>
+<title>AI Tool Pro - Thumbnail + Generator</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Outfit',sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px;display:flex;align-items:center;justify-content:center}
-.container{width:100%;max-width:520px}
-.card{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-radius:28px;padding:40px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.3)}
-.header{text-align:center;margin-bottom:35px}
-.badge{display:inline-block;background:linear-gradient(135deg,#f093fb,#f5576c);color:white;padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;margin-bottom:12px;letter-spacing:0.5px}
-h1{font-size:34px;font-weight:800;color:#1a1a2e;margin-bottom:8px}
-h1 span{background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.tagline{color:#6b7280;font-size:15px;font-weight:500}
-.input-group{margin-bottom:20px}
-input{width:100%;padding:16px 20px;background:#f9fafb;border:2px solid #e5e7eb;border-radius:16px;font-size:15px;font-family:'Outfit';outline:none;transition:all 0.3s}
-input:focus{border-color:#667eea;background:white;box-shadow:0 0 0 4px rgba(102,126,234,0.1)}
-.btn{width:100%;padding:16px;border:none;border-radius:16px;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:12px;transition:all 0.3s;font-family:'Outfit';text-decoration:none;display:block;text-align:center}
-.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:white;box-shadow:0 4px 15px rgba(102,126,234,0.4)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(102,126,234,0.5)}
-.btn-ai{background:linear-gradient(135deg,#f093fb,#f5576c);color:white;box-shadow:0 4px 15px rgba(245,87,108,0.4)}
-.btn-ai:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(245,87,108,0.5)}
-.divider{display:flex;align-items:center;margin:30px 0;color:#9ca3af;font-size:13px;font-weight:600}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:#e5e7eb}
-.divider span{padding:0 15px}
-.pricing{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.price-box{background:#f9fafb;border:2px solid #e5e7eb;border-radius:18px;padding:20px;text-align:center;transition:all 0.3s;cursor:pointer;text-decoration:none;color:#1a1a2e;display:block;position:relative}
-.price-box:hover{border-color:#667eea;transform:translateY(-4px);box-shadow:0 12px 24px rgba(102,126,234,0.15)}
-.price-box.featured{background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:white}
-.price-box.featured::before{content:'MOST POPULAR';position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#f5576c;color:white;font-size:10px;font-weight:800;padding:4px 10px;border-radius:100px;letter-spacing:0.5px}
-.plan-name{font-size:13px;font-weight:600;opacity:0.7;margin-bottom:8px}
-.price{font-size:30px;font-weight:800;margin-bottom:5px}
-.price-box.featured.price{color:white}
-.plan-desc{font-size:12px;opacity:0.8}
-#result{margin-top:25px}
-#result img{width:100%;border-radius:18px;margin:15px 0;box-shadow:0 10px 30px rgba(0,0,0,0.1)}
-.success-box{background:linear-gradient(135deg,#d1fae5,#a7f3d0);padding:20px;border-radius:18px;border:2px solid #10b981}
-.success-box h3{color:#065f46;margin-bottom:12px;font-size:18px}
-.footer{text-align:center;margin-top:30px;font-size:13px;color:#6b7280}
-.footer strong{color:#1a1a2e}
+body{font-family:'Outfit',sans-serif;background:#0f172a;min-height:100vh;padding:20px}
+.container{max-width:700px;margin:0 auto}
+.tabs{display:flex;gap:10px;margin-bottom:25px;background:#1e293b;padding:8px;border-radius:16px}
+.tab{flex:1;padding:12px;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;background:transparent;color:#94a3b8}
+.tab.active{background:#8b5cf6;color:white}
+.box{background:#1e293b;border-radius:24px;padding:35px;margin-bottom:20px}
+h1{text-align:center;font-size:26px;font-weight:700;color:white;margin-bottom:8px}
+h1 span{color:#8b5cf6}
+p{text-align:center;color:#94a3b8;font-size:14px;margin-bottom:25px}
+input,textarea,select{width:100%;padding:15px;background:#0f172a;border:2px solid #334155;border-radius:14px;font-size:15px;color:white;font-family:'Outfit';outline:none;margin-bottom:15px;resize:none}
+select{cursor:pointer}
+input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
+.btn{width:100%;padding:15px;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;background:#8b5cf6;color:white;margin-bottom:10px}
+.btn:disabled{opacity:0.5}
+.checkbox{display:flex;align-items:start;gap:10px;margin:15px 0;font-size:13px;color:#94a3b8}
+.checkbox input{width:auto;margin:0;margin-top:3px}
+#imgBox,#thumbBox{margin-top:25px;text-align:center}
+#imgBox img,#thumbBox img{width:100%;border-radius:16px;margin-bottom:15px}
+.downloads{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.dlBtn{padding:12px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;background:#334155;color:white}
+.loader{display:none;color:#8b5cf6;text-align:center;margin:20px 0;font-weight:600}
+.hidden{display:none}
+.plans{display:grid;gap:15px;margin-top:20px}
+.plan{background:#0f172a;border:2px solid #334155;border-radius:16px;padding:20px;position:relative}
+.plan.popular{border-color:#8b5cf6}
+.badge{position:absolute;top:-10px;right:15px;background:#8b5cf6;color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700}
+.plan h3{color:white;font-size:20px;margin-bottom:5px}
+.price{color:#8b5cf6;font-size:32px;font-weight:700;margin:10px 0}
+.price span{font-size:14px;color:#94a3b8}
+.plan ul{list-style:none;margin:15px 0}
+.plan li{color:#94a3b8;font-size:14px;padding:6px 0}
+.plan li::before{content:"✓ ";color:#10b981;font-weight:700}
+.upiBtn{background:#10b981}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);align-items:center;justify-content:center;z-index:999}
+.modalBox{background:#1e293b;padding:30px;border-radius:20px;text-align:center;max-width:350px}
+.modalBox h3{color:white;margin-bottom:15px}
+.closeBtn{background:#334155}
+.quality-tag{display:inline-block;background:#0f172a;border:1px solid #334155;padding:6px 12px;border-radius:8px;font-size:12px;color:#8b5cf6;margin-bottom:15px}
 </style>
 </head>
 <body>
 <div class="container">
-<div class="card">
-<div class="header">
-<div class="badge">✨ AI POWERED</div>
-<h1>GOC <span>AI Studio</span></h1>
-<p class="tagline">Download 4K Thumbnails + Generate with AI</p>
+<div class="tabs">
+<button class="tab active" onclick="showTab('thumb',this)">📥 Thumbnail</button>
+<button class="tab" onclick="showTab('ai',this)">🎨 AI Generator</button>
+<button class="tab" onclick="showTab('plans',this)">💎 Plans</button>
 </div>
 
-<div class="input-group">
-<input type="text" id="ytLink" placeholder="Paste YouTube link here...">
+<!-- THUMBNAIL DOWNLOADER -->
+<div id="thumbTab" class="box">
+<h1>YT <span>Thumbnail</span> Downloader</h1>
+<p>Paste YouTube link & get HD thumbnail</p>
+<input type="text" id="ytLink" placeholder="https://youtube.com/watch?v=...">
+<div class="quality-tag">📊 Available: HD 1280x720 | SD 640x480 | HQ 480x360 | MQ 320x180</div>
+<button class="btn" onclick="getThumb()">🎯 Get All Qualities</button>
+<div id="thumbBox"></div>
 </div>
 
-<button class="btn btn-primary" onclick="downloadThumb()">📥 Download HD Thumbnail</button>
-<button class="btn btn-ai" onclick="gocAI()">Payment</button>
+<!-- AI GENERATOR -->
+<div id="aiTab" class="box hidden">
+<h1>Safe AI <span>Generator</span></h1>
+<p>NSFW blocked • 18+ only • Safe content</p>
+<textarea id="prompt" rows="3" placeholder="Example: Cyberpunk city, neon lights, cinematic"></textarea>
 
-<div id="result"></div>
+<select id="quality">
+<option value="4k">🎬 4K Ultra HD - 1024x1024 [Pro]</option>
+<option value="hd">💎 HD Quality - 768x768 [Pro]</option>
+<option value="standard" selected>⚡ Standard - 512x512 [Free]</option>
+</select>
 
-<div class="divider"><span>UPGRADE PLANS</span></div>
+<div class="checkbox">
+<input type="checkbox" id="agree">
+<label for="agree">I agree to the Terms & Conditions. I confirm I am 18+ and will not generate NSFW/illegal content.</label>
+</div>
+<button class="btn" id="genBtn" onclick="makeImage()">✨ Generate Image</button>
+<div class="loader" id="loader">Generating... 10-20 sec ⏳</div>
+<div id="imgBox"></div>
+</div>
 
-<div class="pricing">
-<a class="price-box" href="upi://pay?pa=7077134418@ybl&pn=GOC%20AI%20Studio&am=29&cu=INR&tn=Basic%20Plan">
-<div class="plan-name">BASIC</div>
-<div class="price">₹29</div>
-<div class="plan-desc">Unlimited Downloads</div>
-</a>
-<a class="price-box featured" href="upi://pay?pa=7077134418@ybl&pn=GOC%20AI%20Studio&am=139&cu=INR&tn=Pro%20AI%20Plan">
-<div class="plan-name">PRO</div>
-<div class="price">₹139</div>
-<div class="plan-desc">AI Gen + Priority</div>
-</a>
+<!-- PRICING PLANS -->
+<div id="plansTab" class="box hidden">
+<h1>Choose Your <span>Plan</span></h1>
+<p>Upgrade for unlimited access & pro features</p>
+<div class="plans">
+<div class="plan">
+<h3>Free</h3>
+<div class="price">₹0<span>/month</span></div>
+<ul>
+<li>5 Images/day - Standard Quality</li>
+<li>Thumbnail Downloader - All Qualities</li>
+<li>Watermark on images</li>
+<li>512x512 Resolution</li>
+</ul>
+<button class="btn" style="background:#334155">Current Plan</button>
+</div>
+
+<div class="plan popular">
+<div class="badge">MOST POPULAR</div>
+<h3>Pro</h3>
+<div class="price">₹29<span>/month</span></div>
+<ul>
+<li>Unlimited Images - 4K/HD Quality</li>
+<li>No Watermark</li>
+<li>1024x1024 4K Resolution</li>
+<li>Priority Speed</li>
+<li>Commercial Use</li>
+</ul>
+<button class="btn upiBtn" onclick="payNow(29)">💳 Pay ₹29 via UPI</button>
+</div>
+
+<div class="plan">
+<h3>Business</h3>
+<div class="price">₹99<span>/month</span></div>
+<ul>
+<li>Everything in Pro</li>
+<li>API Access</li>
+<li>Bulk Download</li>
+<li>Custom Styles & 8K</li>
+<li>24/7 Support</li>
+</ul>
+<button class="btn upiBtn" onclick="payNow(99)">💳 Pay ₹99 via UPI</button>
 </div>
 </div>
+</div>
 
-<p class="footer">Secure UPI Payment • <strong></strong></p>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal" id="payModal">
+<div class="modalBox">
+<h3>Complete Payment</h3>
+<p id="payText">Pay via any UPI app</p>
+<button class="btn upiBtn" id="openUPIBtn">📱 Open UPI App</button>
+<button class="btn closeBtn" onclick="closeModal()">Close</button>
+<p style="font-size:11px;margin-top:15px;color:#64748b">Desktop user? Please scan QR from mobile</p>
+</div>
 </div>
 
 <script>
-function downloadThumb(){
-let link=document.getElementById('ytLink').value.trim();
-if(!link){alert('⚠️ Please paste YouTube URL');return}
-let videoId='';
-if(link.includes('youtube.com/watch?v=')){videoId=link.split('v=')[1].split('&')[0]}
-else if(link.includes('youtu.be/')){videoId=link.split('youtu.be/')[1].split('?')[0]}
-else if(link.includes('shorts/')){videoId=link.split('shorts/')[1].split('?')[0]}
-else{alert('❌ Invalid YouTube URL');return}
-let imgUrl=`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-document.getElementById('result').innerHTML=`
-<div class="success-box">
-<h3>✅ Thumbnail Ready!</h3>
-<img src="${imgUrl}" alt="Thumbnail">
-<a href="${imgUrl}" download class="btn btn-primary">Download 4K Image</a>
+function showTab(tab,btn){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.box').forEach(b=>b.classList.add('hidden'));
+btn.classList.add('active');
+document.getElementById(tab+'Tab').classList.remove('hidden');
+}
+
+function payNow(amount){
+document.getElementById('payText').innerText = `Pay ₹${amount} via any UPI app`;
+document.getElementById('payModal').style.display = 'flex';
+let upiLink = `upi://pay?pn=AI%20Tool%20Pro&am=${amount}&cu=INR`;
+document.getElementById('openUPIBtn').onclick = function(){window.location.href = upiLink;}
+}
+
+function closeModal(){document.getElementById('payModal').style.display = 'none';}
+
+function getThumb(){
+let link = document.getElementById('ytLink').value.trim();
+if(!link){alert('Please enter a valid YouTube URL');return}
+let videoId = '';
+if(link.includes('youtu.be/')){videoId = link.split('youtu.be/')[1].split('?')[0];}
+else if(link.includes('watch?v=')){videoId = link.split('watch?v=')[1].split('&')[0];}
+else if(link.includes('shorts/')){videoId = link.split('shorts/')[1].split('?')[0];}
+else{alert('Please enter a valid YouTube video URL');return;}
+
+let maxres = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+let hq = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+let mq = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+let sd = `https://img.youtube.com/vi/${videoId}/sddefault.jpg`;
+
+document.getElementById('thumbBox').innerHTML = `
+<img src="${maxres}" onerror="this.src='${hq}'">
+<p style="color:#10b981;font-size:13px;margin:10px 0">✅ All 4 Qualities Available Below</p>
+<div class="downloads">
+<a href="${maxres}" download="thumbnail-HD.jpg"><button class="dlBtn">📥 HD 1280x720</button></a>
+<a href="${sd}" download="thumbnail-SD.jpg"><button class="dlBtn">📥 SD 640x480</button></a>
+<a href="${hq}" download="thumbnail-HQ.jpg"><button class="dlBtn">📥 HQ 480x360</button></a>
+<a href="${mq}" download="thumbnail-MQ.jpg"><button class="dlBtn">📥 MQ 320x180</button></a>
 </div>`;
 }
-function gocAI(){
-window.location.href = "upi://pay?pa=7077134418@ybl&pn=GOC%20AI%20Studio&am=139&cu=INR&tn=AI%20Thumbnail%20Generator";
+
+function makeImage(){
+if(!document.getElementById('agree').checked){
+alert('Please accept the Terms & Conditions to continue. You must be 18+ and agree not to generate NSFW or illegal content.');
+return;
+}
+let prompt = document.getElementById('prompt').value.trim();
+if(!prompt){alert('Please enter a prompt to generate an image');return}
+
+let banned = ['nude','naked','sex','porn','xxx','nsfw','adult','hentai'];
+let lowerPrompt = prompt.toLowerCase();
+for(let word of banned){
+if(lowerPrompt.includes(word)){
+alert('NSFW content is strictly prohibited. Please use a safe and appropriate prompt.');
+return;
+}
+}
+
+let quality = document.getElementById('quality').value;
+let size = '512';
+if(quality === '4k') size = '1024';
+if(quality === 'hd') size = '768';
+
+document.getElementById('genBtn').disabled = true;
+document.getElementById('loader').style.display = 'block';
+document.getElementById('imgBox').innerHTML = '';
+
+let safePrompt = prompt + ', safe for work, clothed, no nudity, family friendly, high quality';
+let aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(safePrompt)}?width=${size}&height=${size}&seed=${Math.floor(Math.random()*100000)}&nologo=true&safe=true`;
+
+document.getElementById('imgBox').innerHTML = `
+<p style="color:#10b981;margin-bottom:10px">✅ Safe Mode Enabled | Quality: ${size}x${size}</p>
+<img src="${aiUrl}" onload="done()" onerror="error()">
+<a href="${aiUrl}" download="ai-${size}x${size}.png"><button class="btn">📥 Download ${size}x${size}</button></a>`;
+
+function done(){
+document.getElementById('loader').style.display='none';
+document.getElementById('genBtn').disabled=false;
+}
+function error(){
+document.getElementById('imgBox').innerHTML = '<p style="color:#ef4444">An error occurred. Please try again with a different prompt.</p>';
+done();
+}
+setTimeout(done, 25000);
 }
 </script>
 </body>
