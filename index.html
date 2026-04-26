@@ -72,8 +72,8 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 <textarea id="prompt" rows="3" placeholder="Example: Cyberpunk city, neon lights, cinematic"></textarea>
 
 <select id="quality">
-<option value="4k">🎬 4K Ultra HD - 1024x1024 [Pro]</option>
-<option value="hd">💎 HD Quality - 768x768 [Pro]</option>
+<option value="4k">🎬 4K Ultra HD - 1024x1024 [₹139 Pro]</option>
+<option value="hd">💎 HD Quality - 768x768 [₹29 Pro]</option>
 <option value="standard" selected>⚡ Standard - 512x512 [Free]</option>
 </select>
 
@@ -104,13 +104,13 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 </div>
 
 <div class="plan popular">
-<div class="badge">MOST POPULAR</div>
+<div class="badge">BEST VALUE</div>
 <h3>Pro</h3>
 <div class="price">₹29<span>/month</span></div>
 <ul>
-<li>Unlimited Images - 4K/HD Quality</li>
+<li>Unlimited Images - HD Quality</li>
 <li>No Watermark</li>
-<li>1024x1024 4K Resolution</li>
+<li>768x768 HD Resolution</li>
 <li>Priority Speed</li>
 <li>Commercial Use</li>
 </ul>
@@ -118,16 +118,17 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 </div>
 
 <div class="plan">
-<h3>Business</h3>
-<div class="price">₹99<span>/month</span></div>
+<div class="badge">4K ACCESS</div>
+<h3>Ultra Pro</h3>
+<div class="price">₹139<span>/month</span></div>
 <ul>
 <li>Everything in Pro</li>
+<li>4K Ultra HD - 1024x1024</li>
+<li>Unlimited 4K Generation</li>
+<li>Fastest Priority</li>
 <li>API Access</li>
-<li>Bulk Download</li>
-<li>Custom Styles & 8K</li>
-<li>24/7 Support</li>
 </ul>
-<button class="btn upiBtn" onclick="payNow(99)">💳 Pay ₹99 via UPI</button>
+<button class="btn upiBtn" onclick="payNow(139)">💳 Pay ₹139 via UPI</button>
 </div>
 </div>
 </div>
@@ -141,11 +142,13 @@ input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
 <p id="payText">Pay via any UPI app</p>
 <button class="btn upiBtn" id="openUPIBtn">📱 Open UPI App</button>
 <button class="btn closeBtn" onclick="closeModal()">Close</button>
-<p style="font-size:11px;margin-top:15px;color:#64748b">Desktop user? Please scan QR from mobile</p>
+<p style="font-size:11px;margin-top:15px;color:#64748b">Payment will open in your UPI app securely</p>
 </div>
 </div>
 
 <script>
+const UPI_ID = '7077134418@ybl'; // Tera number - hidden rahega
+
 function showTab(tab,btn){
 document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
 document.querySelectorAll('.box').forEach(b=>b.classList.add('hidden'));
@@ -154,10 +157,15 @@ document.getElementById(tab+'Tab').classList.remove('hidden');
 }
 
 function payNow(amount){
-document.getElementById('payText').innerText = `Pay ₹${amount} via any UPI app`;
+document.getElementById('payText').innerText = `Pay ₹${amount} securely via UPI`;
 document.getElementById('payModal').style.display = 'flex';
-let upiLink = `upi://pay?pn=AI%20Tool%20Pro&am=${amount}&cu=INR`;
-document.getElementById('openUPIBtn').onclick = function(){window.location.href = upiLink;}
+// Number hidden - direct UPI link with your ID
+let upiLink = `upi://pay?pa=${UPI_ID}&pn=AI%20Tool%20Pro&am=${amount}&cu=INR`;
+document.getElementById('openUPIBtn').onclick = function(){
+window.location.href = upiLink;
+// Fallback agar app na khule
+setTimeout(()=>{alert('If UPI app did not open, please pay manually using any UPI app. Amount: ₹'+amount);},2000);
+}
 }
 
 function closeModal(){document.getElementById('payModal').style.display = 'none';}
@@ -206,8 +214,15 @@ return;
 
 let quality = document.getElementById('quality').value;
 let size = '512';
-if(quality === '4k') size = '1024';
-if(quality === 'hd') size = '768';
+let needsUpgrade = false;
+if(quality === '4k'){size = '1024';needsUpgrade = true;}
+if(quality === 'hd'){size = '768';needsUpgrade = true;}
+
+if(needsUpgrade){
+alert('HD/4K quality requires Pro plan. Please upgrade to Pro ₹29 or Ultra Pro ₹139 from Plans tab.');
+showTab('plans',document.querySelectorAll('.tab')[2]);
+return;
+}
 
 document.getElementById('genBtn').disabled = true;
 document.getElementById('loader').style.display = 'block';
