@@ -1,209 +1,220 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>GOC - Thumbnail Studio</title>
+    <title>GOC Creator Studio - YouTube Thumbnail, Tags, Title Generator</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free YouTube Tools: Thumbnail Downloader, Tags Generator, Title Checker, Description Writer, Hashtag Finder. GOC Studio for Creators.">
+    <meta name="keywords" content="youtube thumbnail downloader, youtube tags generator, youtube title checker, youtube seo tools">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            color: white;
-            min-height: 100vh;
+            color: white; min-height: 100vh;
         }
-
-        /* HEADER + LOGO */
-       .header {
-            background: #111;
-            padding: 15px 20px;
-            border-bottom: 2px solid #ff0000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
+      .header {
+            background: #111; padding: 15px 20px; border-bottom: 2px solid #ff0000;
+            display: flex; align-items: center; justify-content: center; gap: 15px; position: sticky; top: 0; z-index: 100;
         }
-       .logo {
-            width: 45px;
-            height: 45px;
+      .logo {
+            width: 45px; height: 45px; background: linear-gradient(45deg, #ff0000, #ff0055);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 22px; box-shadow: 0 0 20px rgba(255,0,0,0.5);
+        }
+      .site-name {
+            font-size: 28px; font-weight: 800;
             background: linear-gradient(45deg, #ff0000, #ff0055);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 22px;
-            box-shadow: 0 0 20px rgba(255,0,0,0.5);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-       .site-name {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(45deg, #ff0000, #ff0055);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+      .ad-video {
+            width: 100%; max-width: 728px; height: 90px; background: #222;
+            margin: 20px auto; border-radius: 10px; display: flex; align-items: center;
+            justify-content: center; border: 1px dashed #444; color: #888; font-size: 14px;
         }
-
-        /* VIDEO AD BANNER - UPAR */
-       .ad-video {
-            width: 100%;
-            max-width: 728px;
-            height: 90px;
-            background: #222;
-            margin: 20px auto;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed #444;
-            color: #888;
-            font-size: 14px;
+      .container { padding: 20px; max-width: 900px; margin: 0 auto; }
+      .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+      .tab-btn {
+            background: #222; color: white; padding: 12px 20px; border: none;
+            border-radius: 10px; cursor: pointer; font-size: 14px; transition: 0.3s;
         }
-
-        /* MAIN BOX */
-       .container { padding: 20px; max-width: 700px; margin: 0 auto; }
-       .box {
-            background: rgba(26,26,26,0.8);
-            backdrop-filter: blur(10px);
-            padding: 35px;
-            border-radius: 20px;
-            border: 1px solid #333;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      .tab-btn.active { background: linear-gradient(45deg, #ff0000, #ff0055); }
+      .box {
+            background: rgba(26,26,26,0.8); backdrop-filter: blur(10px); padding: 30px;
+            border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            display: none;
         }
-        h2 { color: #fff; margin-bottom: 25px; font-size: 22px; }
-       .input-group { position: relative; }
-        input {
-            width: 100%;
-            padding: 18px 50px 18px 20px;
-            border-radius: 12px;
-            border: 2px solid #333;
-            background: #0f0f0f;
-            color: white;
-            font-size: 16px;
-            transition: 0.3s;
+      .box.active { display: block; }
+        h2 { color: #fff; margin-bottom: 20px; font-size: 20px; }
+        input, textarea {
+            width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #333;
+            background: #0f0f0f; color: white; font-size: 16px; margin: 10px 0;
         }
-        input:focus { border-color: #ff0000; outline: none; }
-       .input-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #ff0000;
-        }
+        input:focus, textarea:focus { border-color: #ff0000; outline: none; }
         button {
-            background: linear-gradient(45deg, #ff0000, #ff0055);
-            color: white;
-            padding: 16px 45px;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.3s;
-            box-shadow: 0 5px 20px rgba(255,0,0,0.3);
+            background: linear-gradient(45deg, #ff0000, #ff0055); color: white; padding: 14px 35px;
+            border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer;
+            margin-top: 15px; transition: 0.3s;
         }
-        button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,0,0,0.5); }
-        button:disabled { background: #555; transform: none; }
-        img {
-            max-width: 100%;
-            margin-top: 25px;
-            border-radius: 15px;
-            border: 3px solid #ff0000;
-            box-shadow: 0 0 30px rgba(255,0,0,0.3);
+        button:hover { transform: translateY(-2px); }
+        img { max-width: 100%; margin-top: 20px; border-radius: 15px; border: 3px solid #ff0000; }
+      .result-box { background: #0f0f0f; padding: 15px; border-radius: 10px; margin-top: 15px; word-wrap: break-word; }
+      .copy-btn { background: #00ff00; color: black; padding: 8px 15px; font-size: 14px; margin-left: 10px; }
+      .ad-image {
+            width: 100%; max-width: 336px; height: 280px; background: #222; margin: 30px auto;
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            border: 1px dashed #444; color: #888; font-size: 14px;
         }
-      .download {
-            background: linear-gradient(45deg, #00ff00, #00cc00);
-            color: black;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-
-        /* IMAGE ADS - NICHE */
-       .ad-image {
-            width: 100%;
-            max-width: 336px;
-            height: 280px;
-            background: #222;
-            margin: 30px auto;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed #444;
-            color: #888;
-            font-size: 14px;
-        }
-
-       .footer {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 14px;
-            margin-top: 40px;
-        }
+      .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; margin-top: 40px; }
     </style>
 </head>
 <body>
-    <!-- HEADER WITH LOGO -->
     <div class="header">
         <div class="logo">GOC</div>
-        <div class="site-name">THUMBNAIL STUDIO</div>
+        <div class="site-name">CREATOR STUDIO</div>
     </div>
 
     <!-- VIDEO AD UPAR -->
     <div class="ad-video">
-        <i class="fas fa-play-circle"></i>&nbsp; Video Ad Space 728x90
+        <i class="fas fa-play-circle"></i>&nbsp; Video Ad Space 728x90 - AdSense Code Here
     </div>
 
-    <!-- MAIN TOOL -->
     <div class="container">
-        <div class="box">
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('thumb')"><i class="fas fa-image"></i> Thumbnail</button>
+            <button class="tab-btn" onclick="showTab('tags')"><i class="fas fa-tags"></i> Tags</button>
+            <button class="tab-btn" onclick="showTab('title')"><i class="fas fa-heading"></i> Title Check</button>
+            <button class="tab-btn" onclick="showTab('desc')"><i class="fas fa-align-left"></i> Description</button>
+            <button class="tab-btn" onclick="showTab('hash')"><i class="fas fa-hashtag"></i> Hashtags</button>
+        </div>
+
+        <!-- 1. THUMBNAIL DOWNLOADER -->
+        <div class="box active" id="thumb">
             <h2><i class="fas fa-download"></i> YouTube Thumbnail Downloader</h2>
-            <div class="input-group">
-                <input type="text" id="url" placeholder="YouTube video link paste karo...">
-                <i class="fas fa-link input-icon"></i>
-            </div>
+            <input type="text" id="url" placeholder="YouTube video link paste karo...">
             <button onclick="getThumb()"><i class="fas fa-bolt"></i> Get Thumbnail</button>
             <div id="thumbResult"></div>
+        </div>
+
+        <!-- 2. TAGS GENERATOR -->
+        <div class="box" id="tags">
+            <h2><i class="fas fa-tags"></i> YouTube Tags Generator</h2>
+            <input type="text" id="videoTitle" placeholder="Video ka title daalo...">
+            <button onclick="genTags()"><i class="fas fa-magic"></i> Generate Tags</button>
+            <div id="tagsResult"></div>
+        </div>
+
+        <!-- 3. TITLE CHECKER -->
+        <div class="box" id="title">
+            <h2><i class="fas fa-heading"></i> YouTube Title Checker</h2>
+            <input type="text" id="checkTitle" placeholder="Apna title daalo..." maxlength="100">
+            <button onclick="checkTitleSEO()"><i class="fas fa-search"></i> Check SEO Score</button>
+            <div id="titleResult"></div>
+        </div>
+
+        <!-- 4. DESCRIPTION GENERATOR -->
+        <div class="box" id="desc">
+            <h2><i class="fas fa-align-left"></i> Description Generator</h2>
+            <input type="text" id="descTopic" placeholder="Video kis topic pe hai?">
+            <button onclick="genDesc()"><i class="fas fa-file-alt"></i> Generate Description</button>
+            <div id="descResult"></div>
+        </div>
+
+        <!-- 5. HASHTAG FINDER -->
+        <div class="box" id="hash">
+            <h2><i class="fas fa-hashtag"></i> Hashtag Finder</h2>
+            <input type="text" id="hashTopic" placeholder="Niche/Category daalo... eg: Gaming, Vlog">
+            <button onclick="genHashtags()"><i class="fas fa-fire"></i> Get Hashtags</button>
+            <div id="hashResult"></div>
         </div>
     </div>
 
     <!-- IMAGE AD NICHE -->
     <div class="ad-image">
-        <i class="fas fa-image"></i>&nbsp; Image Ad Space 336x280
+        <i class="fas fa-image"></i>&nbsp; Image Ad Space 336x280 - AdSense Code Here
     </div>
 
-    <div class="footer">
-        © 2026 GOC Thumbnail Studio. All rights reserved.
-    </div>
+    <div class="footer">© 2026 GOC Creator Studio. Made for YouTubers ❤️</div>
 
     <script>
+        // TABS SWITCH
+        function showTab(tabId) {
+            document.querySelectorAll('.box').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // 1. THUMBNAIL
         function getThumb() {
             const url = document.getElementById('url').value;
-            const result = document.getElementById('thumbResult');
             if(!url) { alert('Link daalo pehle'); return; }
-
             let videoId = '';
-            if(url.includes('youtu.be/')) {
-                videoId = url.split('youtu.be/')[1].split('?')[0];
-            } else if(url.includes('watch?v=')) {
-                videoId = url.split('watch?v=')[1].split('&')[0];
-            } else if(url.includes('shorts/')) {
-                videoId = url.split('shorts/')[1].split('?')[0];
-            } else {
-                alert('Sahi YouTube link daalo');
-                return;
-            }
-
+            if(url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1].split('?')[0];
+            else if(url.includes('watch?v=')) videoId = url.split('watch?v=')[1].split('&')[0];
+            else if(url.includes('shorts/')) videoId = url.split('shorts/')[1].split('?')[0];
+            else { alert('Sahi YouTube link daalo'); return; }
             const thumbUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-            result.innerHTML = `
+            document.getElementById('thumbResult').innerHTML = `
                 <img src="${thumbUrl}" alt="Thumbnail">
-                <br>
-                <a href="${thumbUrl}" download="goc-thumbnail-${videoId}.jpg" target="_blank">
-                    <button class="download"><i class="fas fa-download"></i> Download HD Thumbnail</button>
-                </a>
-            `;
+                <br><a href="${thumbUrl}" download="goc-thumb-${videoId}.jpg" target="_blank">
+                <button style="background:#00ff00;color:black;"><i class="fas fa-download"></i> Download HD</button></a>`;
+        }
+
+        // 2. TAGS GENERATOR
+        function genTags() {
+            const title = document.getElementById('videoTitle').value.toLowerCase();
+            if(!title) { alert('Title daalo'); return; }
+            const words = title.split(' ').filter(w => w.length > 2);
+            const tags = [...new Set([...words,...words.map(w => w + ' video'),...words.map(w => w + ' 2026')])];
+            const tagStr = tags.slice(0, 15).join(', ');
+            document.getElementById('tagsResult').innerHTML = `
+                <div class="result-box">${tagStr}
+                <button class="copy-btn" onclick="copyText('${tagStr}')"><i class="fas fa-copy"></i> Copy</button></div>`;
+        }
+
+        // 3. TITLE CHECKER
+        function checkTitleSEO() {
+            const title = document.getElementById('checkTitle').value;
+            if(!title) { alert('Title daalo'); return; }
+            let score = 0; let tips = [];
+            if(title.length >= 60 && title.length <= 70) { score += 30; tips.push('✅ Length perfect 60-70 chars'); }
+            else tips.push('❌ Length 60-70 rakho. Current: ' + title.length);
+            if(/[0-9]/.test(title)) { score += 20; tips.push('✅ Number hai - CTR badhega'); }
+            else tips.push('❌ Number add karo eg: Top 10');
+            if(title.includes('?') || title.includes('!')) { score += 20; tips.push('✅ Emotion/Hook hai'); }
+            if(title.split(' ')[0].length > 3) { score += 30; tips.push('✅ First word strong hai'); }
+            document.getElementById('titleResult').innerHTML = `
+                <div class="result-box"><h3>SEO Score: ${score}/100</h3>${tips.join('<br>')}</div>`;
+        }
+
+        // 4. DESCRIPTION GENERATOR
+        function genDesc() {
+            const topic = document.getElementById('descTopic').value;
+            if(!topic) { alert('Topic daalo'); return; }
+            const desc = `🔥 ${topic} ke baare me is video me!\n\n👍 Video pasand aaye to LIKE & SUBSCRIBE karna mat bhulna!\n\n📌 Timestamps:\n0:00 Intro\n1:00 Main Content\n\n📱 Follow karo:\nInstagram: @goc\n\n#${topic.replace(/ /g,'')} #YouTube #Viral`;
+            document.getElementById('descResult').innerHTML = `
+                <div class="result-box"><textarea rows="8" id="descText">${desc}</textarea>
+                <button class="copy-btn" onclick="copyText(document.getElementById('descText').value)"><i class="fas fa-copy"></i> Copy</button></div>`;
+        }
+
+        // 5. HASHTAG FINDER
+        function genHashtags() {
+            const topic = document.getElementById('hashTopic').value.toLowerCase();
+            if(!topic) { alert('Topic daalo'); return; }
+            const base = [topic, topic+'video', topic+'2026', 'viral', 'trending', 'youtube', 'shorts'];
+            const hashtags = base.map(t => '#' + t.replace(/ /g,'')).slice(0,10).join(' ');
+            document.getElementById('hashResult').innerHTML = `
+                <div class="result-box">${hashtags}
+                <button class="copy-btn" onclick="copyText('${hashtags}')"><i class="fas fa-copy"></i> Copy</button></div>`;
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text);
+            alert('Copied! ✅');
         }
     </script>
 </body>
-</html>
+    </html>
