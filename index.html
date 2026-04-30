@@ -247,7 +247,6 @@ showTab('plans',document.querySelectorAll('.tab')[2]);
 return;
 }
 
-// GOC KA BACKEND CALL STARTS HERE 💣
 document.getElementById('loader').style.display = 'block';
 document.getElementById('genBtn').disabled = true;
 document.getElementById('imgBox').innerHTML = '';
@@ -256,30 +255,31 @@ try {
     const response = await fetch('https://stirring-wisp-d4922b.netlify.app/.netlify/functions/generate', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ 
-            prompt: prompt + ', ' + qualityTags,
+        body: JSON.stringify({
+            prompt: prompt + ', ' + qualityTags + ', safe for work, clothed, no nudity, family friendly',
             width: width,
-            height: height 
+            height: height
         })
     });
-    
+
     const data = await response.json();
     if(data.error) throw new Error(data.error);
-    
+
     document.getElementById('imgBox').innerHTML = `
-        <img src="${data.imageUrl}" style="max-width:100%;border-radius:12px;margin-top:10px">
+        <p style="color:#10b981;margin-bottom:10px">✅ GOC AI Generated | ${quality.toUpperCase()}: ${width}x${height}</p>
+        <img src="${data.imageUrl}" style="max-width:100%;border-radius:12px">
         <a href="${data.imageUrl}" download="goc-ai-${Date.now()}.png">
-            <button class="btn" style="margin-top:10px;width:100%">⬇️ Download HD</button>
+            <button class="btn" style="margin-top:10px;width:100%">⬇️ Download ${quality.toUpperCase()}</button>
         </a>
     `;
-    
+
 } catch(err) {
-    alert('Error: ' + err.message);
+    document.getElementById('imgBox').innerHTML = `<p style="color:#ef4444">❌ Error: ${err.message}</p>`;
 } finally {
     document.getElementById('loader').style.display = 'none';
     document.getElementById('genBtn').disabled = false;
 }
-// GOC KA BACKEND CALL ENDS HERE 💣
+}
 </script>
 </body>
 </html>
