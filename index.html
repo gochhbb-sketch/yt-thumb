@@ -1,285 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Tool Pro - Thumbnail + Generator</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Outfit',sans-serif;background:#0f172a;min-height:100vh;padding:20px}
-.container{max-width:700px;margin:0 auto}
-.tabs{display:flex;gap:10px;margin-bottom:25px;background:#1e293b;padding:8px;border-radius:16px}
-.tab{flex:1;padding:12px;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;background:transparent;color:#94a3b8}
-.tab.active{background:#8b5cf6;color:white}
-.box{background:#1e293b;border-radius:24px;padding:35px;margin-bottom:20px}
-h1{text-align:center;font-size:26px;font-weight:700;color:white;margin-bottom:8px}
-h1 span{color:#8b5cf6}
-p{text-align:center;color:#94a3b8;font-size:14px;margin-bottom:25px}
-input,textarea,select{width:100%;padding:15px;background:#0f172a;border:2px solid #334155;border-radius:14px;font-size:15px;color:white;font-family:'Outfit';outline:none;margin-bottom:15px;resize:none}
-select{cursor:pointer}
-input:focus,textarea:focus,select:focus{border-color:#8b5cf6}
-.btn{width:100%;padding:15px;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;background:#8b5cf6;color:white;margin-bottom:10px}
-.btn:disabled{opacity:0.5}
-.checkbox{display:flex;align-items:start;gap:10px;margin:15px 0;font-size:13px;color:#94a3b8}
-.checkbox input{width:auto;margin:0;margin-top:3px}
-#imgBox,#thumbBox{margin-top:25px;text-align:center}
-#imgBox img,#thumbBox img{width:100%;border-radius:16px;margin-bottom:15px;image-rendering:high-quality}
-.downloads{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
-.dlBtn{padding:12px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;background:#334155;color:white}
-.loader{display:none;color:#8b5cf6;text-align:center;margin:20px 0;font-weight:600}
-.hidden{display:none}
-.plans{display:grid;gap:15px;margin-top:20px}
-.plan{background:#0f172a;border:2px solid #334155;border-radius:16px;padding:20px;position:relative}
-.plan.popular{border-color:#8b5cf6}
-.badge{position:absolute;top:-10px;right:15px;background:#8b5cf6;color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700}
-.plan h3{color:white;font-size:20px;margin-bottom:5px}
-.price{color:#8b5cf6;font-size:32px;font-weight:700;margin:10px 0}
-.price span{font-size:14px;color:#94a3b8}
-.plan ul{list-style:none;margin:15px 0}
-.plan li{color:#94a3b8;font-size:14px;padding:6px 0}
-.plan li::before{content:"✓ ";color:#10b981;font-weight:700}
-.upiBtn{background:#10b981}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);align-items:center;justify-content:center;z-index:999}
-.modalBox{background:#1e293b;padding:30px;border-radius:20px;text-align:center;max-width:350px}
-.modalBox h3{color:white;margin-bottom:15px}
-.closeBtn{background:#334155}
-.quality-tag{display:inline-block;background:#0f172a;border:1px solid #334155;padding:6px 12px;border-radius:8px;font-size:12px;color:#8b5cf6;margin-bottom:15px}
-.free-badge{background:#10b981;color:white;padding:2px 8px;border-radius:6px;font-size:10px;margin-left:5px}
-.paid-badge{background:#ef4444;color:white;padding:2px 8px;border-radius:6px;font-size:10px;margin-left:5px}
-</style>
+    <title>Thumbnail Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial; background: #0a0a0a; color: white; text-align: center; padding: 20px; }
+      .box { max-width: 500px; margin: 50px auto; background: #1a1a1a; padding: 30px; border-radius: 15px; margin-bottom: 20px; }
+        input { width: 90%; padding: 15px; margin: 10px 0; border-radius: 8px; border: none; font-size: 16px; }
+        button { background: #ff0000; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; margin: 5px; }
+        img { max-width: 100%; margin-top: 20px; border-radius: 10px; border: 2px solid #ff0000; }
+        h1 { color: #ff0000; }
+        h2 { color: #ffffff; margin-bottom: 20px; font-size: 20px; }
+      .download { background: #00ff00; color: black; font-weight: bold; }
+    </style>
 </head>
 <body>
-<div class="container">
-<div class="tabs">
-<button class="tab active" onclick="showTab('thumb',this)">📥 Thumbnail</button>
-<button class="tab" onclick="showTab('ai',this)">🎨 AI Generator</button>
-<button class="tab" onclick="showTab('plans',this)">💎 Plans</button>
-</div>
+    <h1>📸 THUMBNAIL STUDIO</h1>
 
-<!-- THUMBNAIL DOWNLOADER -->
-<div id="thumbTab" class="box">
-<h1>YT <span>Thumbnail</span> Downloader</h1>
-<p>Paste YouTube link & get all quality thumbnails</p>
-<input type="text" id="ytLink" placeholder="https://youtube.com/watch?v=...">
-<div class="quality-tag">📊 HD 1280x720 | SD 640x480 | HQ 480x360 | MQ 320x180</div>
-<button class="btn" onclick="getThumb()">🎯 Get All Qualities</button>
-<div id="thumbBox"></div>
-</div>
+    <div class="box">
+        <h2>YouTube Thumbnail Downloader</h2>
+        <input type="text" id="url" placeholder="YouTube video link paste karo...">
+        <br><br>
+        <button onclick="getThumb()">Get Thumbnail</button>
+        <div id="thumbResult"></div>
+    </div>
 
-<!-- AI GENERATOR -->
-<div id="aiTab" class="box hidden">
-<h1>Safe AI <span>Generator</span></h1>
-<p>NSFW blocked • 18+ only • Safe content</p>
-<textarea id="prompt" rows="3" placeholder="Example: Cyberpunk city, neon lights, cinematic, ultra detailed"></textarea>
+    <script>
+        function getThumb() {
+            const url = document.getElementById('url').value;
+            const result = document.getElementById('thumbResult');
+            if(!url) { alert('Link daalo pehle'); return; }
 
-<select id="quality">
-<option value="8k">🎬 8K Full Ultra HD - 7680x4320 [₹139 Pro] 🔒</option>
-<option value="4k">💎 4K Ultra HD - 3840x2160 [₹139 Pro] 🔒</option>
-<option value="fhd">📺 Full HD - 1920x1080 [₹29 Pro] 🔒</option>
-<option value="hd">⚡ HD - 1280x720 [FREE] ✅</option>
-<option value="sd" selected>📱 SD - 640x480 [FREE] ✅</option>
-</select>
+            let videoId = '';
+            if(url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
+            } else if(url.includes('watch?v=')) {
+                videoId = url.split('watch?v=')[1].split('&')[0];
+            } else if(url.includes('shorts/')) {
+                videoId = url.split('shorts/')[1].split('?')[0];
+            } else {
+                alert('Sahi YouTube link daalo');
+                return;
+            }
 
-<div class="checkbox">
-<input type="checkbox" id="agree">
-<label for="agree">I agree to the Terms & Conditions. I confirm I am 18+ and will not generate NSFW/illegal content.</label>
-</div>
-<button class="btn" id="genBtn" onclick="makeImage()">✨ Generate Image</button>
-<div class="loader" id="loader">Generating... 15-40 sec ⏳</div>
-<div id="imgBox"></div>
-</div>
-
-<!-- PRICING PLANS -->
-<div id="plansTab" class="box hidden">
-<h1>Choose Your <span>Plan</span></h1>
-<p>SD & HD Free • FHD, 4K, 8K Premium</p>
-<div class="plans">
-<div class="plan">
-<h3>Free</h3>
-<div class="price">₹0<span>/month</span></div>
-<ul>
-<li>SD 640x480 <span class="free-badge">FREE</span></li>
-<li>HD 1280x720 <span class="free-badge">FREE</span></li>
-<li>5 Images/day</li>
-<li>Thumbnail Downloader</li>
-<li>Watermark on images</li>
-</ul>
-<button class="btn" style="background:#334155">Current Plan</button>
-</div>
-
-<div class="plan popular">
-<div class="badge">BEST VALUE</div>
-<h3>Pro</h3>
-<div class="price">₹29<span>/month</span></div>
-<ul>
-<li>Full HD 1920x1080 <span class="paid-badge">PRO</span></li>
-<li>Unlimited Images</li>
-<li>No Watermark</li>
-<li>Priority Speed</li>
-<li>Commercial Use</li>
-</ul>
-<button class="btn upiBtn" onclick="payNow(29)">💳 Pay ₹29 via UPI</button>
-</div>
-
-<div class="plan">
-<div class="badge">ULTRA QUALITY</div>
-<h3>Ultra Pro</h3>
-<div class="price">₹139<span>/month</span></div>
-<ul>
-<li>4K Ultra HD 3840x2160 <span class="paid-badge">ULTRA</span></li>
-<li>8K Full Ultra HD 7680x4320 <span class="paid-badge">ULTRA</span></li>
-<li>Everything in Pro</li>
-<li>Masterpiece Quality</li>
-<li>Fastest Priority</li>
-</ul>
-<button class="btn upiBtn" onclick="payNow(139)">💳 Pay ₹139 via UPI</button>
-</div>
-</div>
-</div>
-
-</div>
-
-<!-- PAYMENT MODAL -->
-<div class="modal" id="payModal">
-<div class="modalBox">
-<h3>Complete Payment</h3>
-<p id="payText">Pay via any UPI app</p>
-<button class="btn upiBtn" id="openUPIBtn">📱 Open UPI App</button>
-<button class="btn closeBtn" onclick="closeModal()">Close</button>
-<p style="font-size:11px;margin-top:15px;color:#64748b">Payment will open in your UPI app securely</p>
-</div>
-</div>
-
-<script>
-const UPI_ID = 'khirtamg9343@okaxis';
-
-function showTab(tab,btn){
-document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-document.querySelectorAll('.box').forEach(b=>b.classList.add('hidden'));
-btn.classList.add('active');
-document.getElementById(tab+'Tab').classList.remove('hidden');
-}
-
-function payNow(amount){
-document.getElementById('payText').innerText = `Pay ₹${amount} securely via UPI`;
-document.getElementById('payModal').style.display = 'flex';
-let upiLink = `upi://pay?pa=${UPI_ID}&pn=AI%20Tool%20Pro&am=${amount}&cu=INR&tn=Plan%20Subscription`;
-document.getElementById('openUPIBtn').onclick = function(){
-window.location.href = upiLink;
-setTimeout(()=>{alert('If UPI app did not open, please pay manually using any UPI app. Amount: ₹'+amount);},2000);
-}
-}
-
-function closeModal(){document.getElementById('payModal').style.display = 'none';}
-
-function getThumb(){
-let link = document.getElementById('ytLink').value.trim();
-if(!link){alert('Please enter a valid YouTube URL');return}
-let videoId = '';
-if(link.includes('youtu.be/')){videoId = link.split('youtu.be/')[1].split('?')[0];}
-else if(link.includes('watch?v=')){videoId = link.split('watch?v=')[1].split('&')[0];}
-else if(link.includes('shorts/')){videoId = link.split('shorts/')[1].split('?')[0];}
-else{alert('Please enter a valid YouTube video URL');return;}
-
-let maxres = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-let hq = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-let mq = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
-let sd = `https://img.youtube.com/vi/${videoId}/sddefault.jpg`;
-
-document.getElementById('thumbBox').innerHTML = `
-<img src="${maxres}" onerror="this.src='${hq}'">
-<p style="color:#10b981;font-size:13px;margin:10px 0">✅ All Qualities Available - Free Download</p>
-<div class="downloads">
-<a href="${maxres}" download="thumbnail-HD-1280x720.jpg"><button class="dlBtn">📥 HD 1280x720</button></a>
-<a href="${sd}" download="thumbnail-SD-640x480.jpg"><button class="dlBtn">📥 SD 640x480</button></a>
-<a href="${hq}" download="thumbnail-HQ-480x360.jpg"><button class="dlBtn">📥 HQ 480x360</button></a>
-<a href="${mq}" download="thumbnail-MQ-320x180.jpg"><button class="dlBtn">📥 MQ 320x180</button></a>
-</div>`;
-}
-
-async function makeImage(){
-if(!document.getElementById('agree').checked){
-alert('Please accept the Terms & Conditions to continue. You must be 18+ and agree not to generate NSFW or illegal content.');
-return;
-}
-let prompt = document.getElementById('prompt').value.trim();
-if(!prompt){alert('Please enter a prompt to generate an image');return}
-
-let banned = ['nude','naked','sex','porn','xxx','nsfw','adult','hentai','boobs','pussy','uncensored'];
-let lowerPrompt = prompt.toLowerCase();
-for(let word of banned){
-if(lowerPrompt.includes(word)){
-alert('NSFW content is strictly prohibited. Please use a safe and appropriate prompt.');
-return;
-}
-}
-
-let quality = document.getElementById('quality').value;
-let width = 640, height = 480;
-let qualityTags = 'high quality, detailed';
-let planRequired = '';
-let price = 0;
-
-if(quality === 'sd'){
-width = 640; height = 480;
-qualityTags = 'standard definition, clear';
-}else if(quality === 'hd'){
-width = 1280; height = 720;
-qualityTags = 'high definition, detailed, sharp';
-}else if(quality === 'fhd'){
-width = 1920; height = 1080;
-qualityTags = 'full hd, professional, cinematic, sharp focus';
-planRequired = 'Pro'; price = 29;
-}else if(quality === '4k'){
-width = 3840; height = 2160;
-qualityTags = '4k ultra hd, masterpiece, ultra detailed, photorealistic, 8k quality, professional photography';
-planRequired = 'Ultra Pro'; price = 139;
-}else if(quality === '8k'){
-width = 7680; height = 4320;
-qualityTags = '8k full ultra hd, masterpiece, maximum detail, photorealistic, professional studio quality';
-planRequired = 'Ultra Pro'; price = 139;
-}
-
-if(planRequired){
-alert(`${quality.toUpperCase()} quality requires ${planRequired} plan. Please upgrade for ₹${price} from Plans tab.`);
-showTab('plans',document.querySelectorAll('.tab')[2]);
-return;
-}
-
-document.getElementById('loader').style.display = 'block';
-document.getElementById('genBtn').disabled = true;
-document.getElementById('imgBox').innerHTML = '';
-
-try {
-    const response = await fetch('https://stirring-wisp-d4922b.netlify.app/.netlify/functions/generate', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            prompt: prompt + ', ' + qualityTags + ', safe for work, clothed, no nudity, family friendly',
-            width: width,
-            height: height
-        })
-    });
-
-    const data = await response.json();
-    if(data.error) throw new Error(data.error);
-
-    document.getElementById('imgBox').innerHTML = `
-        <p style="color:#10b981;margin-bottom:10px">✅ GOC AI Generated | ${quality.toUpperCase()}: ${width}x${height}</p>
-        <img src="${data.imageUrl}" style="max-width:100%;border-radius:12px">
-        <a href="${data.imageUrl}" download="goc-ai-${Date.now()}.png">
-            <button class="btn" style="margin-top:10px;width:100%">⬇️ Download ${quality.toUpperCase()}</button>
-        </a>
-    `;
-
-} catch(err) {
-    document.getElementById('imgBox').innerHTML = `<p style="color:#ef4444">❌ Error: ${err.message}</p>`;
-} finally {
-    document.getElementById('loader').style.display = 'none';
-    document.getElementById('genBtn').disabled = false;
-}
-}
-</script>
+            const thumbUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+            result.innerHTML = `
+                <img src="${thumbUrl}" alt="Thumbnail">
+                <br><br>
+                <a href="${thumbUrl}" download="thumbnail-${videoId}.jpg" target="_blank">
+                    <button class="download">Download HD</button>
+                </a>
+            `;
+        }
+    </script>
 </body>
 </html>
