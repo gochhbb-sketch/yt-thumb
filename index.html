@@ -1,28 +1,180 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Thumbnail Studio</title>
+    <title>GOC - Thumbnail Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: Arial; background: #0a0a0a; color: white; text-align: center; padding: 20px; }
-      .box { max-width: 500px; margin: 50px auto; background: #1a1a1a; padding: 30px; border-radius: 15px; margin-bottom: 20px; }
-        input { width: 90%; padding: 15px; margin: 10px 0; border-radius: 8px; border: none; font-size: 16px; }
-        button { background: #ff0000; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; margin: 5px; }
-        img { max-width: 100%; margin-top: 20px; border-radius: 10px; border: 2px solid #ff0000; }
-        h1 { color: #ff0000; }
-        h2 { color: #ffffff; margin-bottom: 20px; font-size: 20px; }
-      .download { background: #00ff00; color: black; font-weight: bold; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* HEADER + LOGO */
+       .header {
+            background: #111;
+            padding: 15px 20px;
+            border-bottom: 2px solid #ff0000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+       .logo {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, #ff0000, #ff0055);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 22px;
+            box-shadow: 0 0 20px rgba(255,0,0,0.5);
+        }
+       .site-name {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff0000, #ff0055);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* VIDEO AD BANNER - UPAR */
+       .ad-video {
+            width: 100%;
+            max-width: 728px;
+            height: 90px;
+            background: #222;
+            margin: 20px auto;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #444;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* MAIN BOX */
+       .container { padding: 20px; max-width: 700px; margin: 0 auto; }
+       .box {
+            background: rgba(26,26,26,0.8);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        h2 { color: #fff; margin-bottom: 25px; font-size: 22px; }
+       .input-group { position: relative; }
+        input {
+            width: 100%;
+            padding: 18px 50px 18px 20px;
+            border-radius: 12px;
+            border: 2px solid #333;
+            background: #0f0f0f;
+            color: white;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        input:focus { border-color: #ff0000; outline: none; }
+       .input-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff0000;
+        }
+        button {
+            background: linear-gradient(45deg, #ff0000, #ff0055);
+            color: white;
+            padding: 16px 45px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(255,0,0,0.3);
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,0,0,0.5); }
+        button:disabled { background: #555; transform: none; }
+        img {
+            max-width: 100%;
+            margin-top: 25px;
+            border-radius: 15px;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 30px rgba(255,0,0,0.3);
+        }
+      .download {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: black;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* IMAGE ADS - NICHE */
+       .ad-image {
+            width: 100%;
+            max-width: 336px;
+            height: 280px;
+            background: #222;
+            margin: 30px auto;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #444;
+            color: #888;
+            font-size: 14px;
+        }
+
+       .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
-    <h1>📸 THUMBNAIL STUDIO</h1>
+    <!-- HEADER WITH LOGO -->
+    <div class="header">
+        <div class="logo">GOC</div>
+        <div class="site-name">THUMBNAIL STUDIO</div>
+    </div>
 
-    <div class="box">
-        <h2>YouTube Thumbnail Downloader</h2>
-        <input type="text" id="url" placeholder="YouTube video link paste karo...">
-        <br><br>
-        <button onclick="getThumb()">Get Thumbnail</button>
-        <div id="thumbResult"></div>
+    <!-- VIDEO AD UPAR -->
+    <div class="ad-video">
+        <i class="fas fa-play-circle"></i>&nbsp; Video Ad Space 728x90
+    </div>
+
+    <!-- MAIN TOOL -->
+    <div class="container">
+        <div class="box">
+            <h2><i class="fas fa-download"></i> YouTube Thumbnail Downloader</h2>
+            <div class="input-group">
+                <input type="text" id="url" placeholder="YouTube video link paste karo...">
+                <i class="fas fa-link input-icon"></i>
+            </div>
+            <button onclick="getThumb()"><i class="fas fa-bolt"></i> Get Thumbnail</button>
+            <div id="thumbResult"></div>
+        </div>
+    </div>
+
+    <!-- IMAGE AD NICHE -->
+    <div class="ad-image">
+        <i class="fas fa-image"></i>&nbsp; Image Ad Space 336x280
+    </div>
+
+    <div class="footer">
+        © 2026 GOC Thumbnail Studio. All rights reserved.
     </div>
 
     <script>
@@ -46,9 +198,9 @@
             const thumbUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
             result.innerHTML = `
                 <img src="${thumbUrl}" alt="Thumbnail">
-                <br><br>
-                <a href="${thumbUrl}" download="thumbnail-${videoId}.jpg" target="_blank">
-                    <button class="download">Download HD</button>
+                <br>
+                <a href="${thumbUrl}" download="goc-thumbnail-${videoId}.jpg" target="_blank">
+                    <button class="download"><i class="fas fa-download"></i> Download HD Thumbnail</button>
                 </a>
             `;
         }
