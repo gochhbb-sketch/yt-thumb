@@ -198,7 +198,7 @@ document.getElementById('thumbBox').innerHTML = `
 </div>`;
 }
 
-function makeImage(){
+async function makeImage(){
 if(!document.getElementById('agree').checked){
 alert('Please accept the Terms & Conditions to continue. You must be 18+ and agree not to generate NSFW or illegal content.');
 return;
@@ -247,28 +247,39 @@ showTab('plans',document.querySelectorAll('.tab')[2]);
 return;
 }
 
-document.getElementById('genBtn').disabled = true;
+// GOC KA BACKEND CALL STARTS HERE 💣
 document.getElementById('loader').style.display = 'block';
+document.getElementById('genBtn').disabled = true;
 document.getElementById('imgBox').innerHTML = '';
 
-let safePrompt = `${prompt}, ${qualityTags}, safe for work, clothed, no nudity, family friendly`;
-let aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(safePrompt)}?width=${width}&height=${height}&seed=${Math.floor(Math.random()*100000)}&nologo=true&safe=true&enhance=true&model=flux`;
-
-document.getElementById('imgBox').innerHTML = `
-<p style="color:#10b981;margin-bottom:10px">✅ Safe Mode + HD Enhanced | ${quality.toUpperCase()}: ${width}x${height}</p>
-<img src="${aiUrl}" onload="done()" onerror="error()">
-<a href="${aiUrl}" download="ai-${quality}-${width}x${height}.png"><button class="btn">📥 Download ${quality.toUpperCase()} ${width}x${height}</button></a>`;
-
-function done(){
-document.getElementById('loader').style.display='none';
-document.getElementById('genBtn').disabled=false;
+try {
+    const response = await fetch('https://stirring-wisp-d4922b.netlify.app/.netlify/functions/generate', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            prompt: prompt + ', ' + qualityTags,
+            width: width,
+            height: height 
+        })
+    });
+    
+    const data = await response.json();
+    if(data.error) throw new Error(data.error);
+    
+    document.getElementById('imgBox').innerHTML = `
+        <img src="${data.imageUrl}" style="max-width:100%;border-radius:12px;margin-top:10px">
+        <a href="${data.imageUrl}" download="goc-ai-${Date.now()}.png">
+            <button class="btn" style="margin-top:10px;width:100%">⬇️ Download HD</button>
+        </a>
+    `;
+    
+} catch(err) {
+    alert('Error: ' + err.message);
+} finally {
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('genBtn').disabled = false;
 }
-function error(){
-document.getElementById('imgBox').innerHTML = '<p style="color:#ef4444">An error occurred. Please try again with a different prompt.</p>';
-done();
-}
-setTimeout(done, 40000);
-}
+// GOC KA BACKEND CALL ENDS HERE 💣
 </script>
 </body>
 </html>
